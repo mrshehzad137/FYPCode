@@ -6,6 +6,7 @@ import AuthService from '../AuthTest';
 import {AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/comsatslogo.jpg';
 import sygnet from '../../assets/img/brand/comsatslogo.jpg';
+import axios from 'axios';
 
 const propTypes = {
   children: PropTypes.node,
@@ -20,6 +21,8 @@ class AdminHeader extends Component {
   constructor(props){
     super(props);
     this.state={
+      adminprofile:null,
+      notificationcount:''
     }
     this.logoutHandler= this.logoutHandler.bind(this);
   }
@@ -30,6 +33,37 @@ class AdminHeader extends Component {
     window.location.reload(false);
 
   }
+
+  componentWillMount(){
+    var id=localStorage.getItem('user_id');
+    axios.post('/api/admin/getprofile',{adminid:id})
+    .then(res=>{
+      console.log(res);
+      var admin=res.data.data;
+      if(admin.profileImage){
+        this.setState({
+          adminprofile:admin.profileImage
+        })
+      }
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+
+    axios.post('/api/admin/GetAllunread',{userId:id})
+    .then(res=>{
+      var countarray = res.data.list;
+      console.log(countarray.length);
+      this.setState({
+        notificationcount:countarray.length
+      })
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }
+
+
  
   render() {
 
@@ -53,11 +87,11 @@ class AdminHeader extends Component {
         </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
-            <NavLink to="/AdminDashboard/notification" className="nav-link"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
+    <NavLink to="/AdminDashboard/notification" className="nav-link"><i className="icon-bell"></i><Badge pill color="danger">{this.state.notificationcount}</Badge></NavLink>
           </NavItem>
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
-              <img src={'http://localhost:4000/uploads/AdminImages/2020-02-17T20:55:03.574ZIMG_20170922_191809.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+              <img src={"http://localhost:4000/"+(this.state.adminprofile?this.state.adminprofile:'')}  className="img-avatar" alt="admin@bootstrapmaster.com" />
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem><i className="fa fa-user"></i><Link to='/AdminDashboard/profile' style={{textDecoration:'none'}}>Profile</Link></DropdownItem>

@@ -63,8 +63,37 @@ import nodataImage from '../../assets/img/nodata.png';
     axios.post('/api/admin/schedulePresentation',data)
     .then(res=>{
       console.log(res);
-      alert(res.data.message);
-      this.props.history.replace('/AdminDashboard');
+     
+      this.props.synopsisSel.map((value,index)=>{
+        if(value){
+          const snop=this.props.synopsistList[index];
+          console.log(snop);
+          axios.post('/api/admin/Notify',
+          {
+            userId:snop.student._id,
+            subject: "Your Synopsis has been schedule for presentation",
+            status:"unreaded"
+          })
+          .then(result=>{
+            axios.post('/api/admin/Notify',
+            {
+              userId:snop.supervisor._id,
+              subject: "Synopsis \""+snop.title+"\" has been schedule for presentation",
+              status:"unreaded"
+            })
+            .then(result=>{
+              this.props.history.replace('/AdminDashboard');
+            })
+            .catch(err=>{
+              console.log(err);
+            })
+          })
+          .catch(err=>{
+            console.log(err);
+          })
+        }
+    })
+    alert(res.data.message);
     })
     .catch(err=>{
       console.log(err);

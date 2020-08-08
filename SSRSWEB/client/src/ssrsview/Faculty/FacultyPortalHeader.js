@@ -20,7 +20,8 @@ class FacultyHeader extends Component {
   constructor(props){
     super(props);
     this.state={
-      facultyprofileImage:''
+      facultyprofileImage:'',
+      notificationcount:''
     }
     this.logoutHandler= this.logoutHandler.bind(this);
   }
@@ -42,6 +43,18 @@ class FacultyHeader extends Component {
           facultyprofileImage:res.data.data.profileImage
         })
       }
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+
+    axios.post('/api/admin/GetAllunread',{userId:id})
+    .then(res=>{
+      var countarray = res.data.list;
+      console.log(countarray.length);
+      this.setState({
+        notificationcount:countarray.length
+      })
     })
     .catch(err=>{
       console.log(err);
@@ -73,7 +86,7 @@ class FacultyHeader extends Component {
         </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
-            <NavLink to="/FacultyPortal/Notification" className="nav-link"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
+    <NavLink to="/FacultyPortal/Notification" className="nav-link"><i className="icon-bell"></i><Badge pill color="danger">{this.state.notificationcount}</Badge></NavLink>
           </NavItem>
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>

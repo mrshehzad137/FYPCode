@@ -77,9 +77,33 @@ class CommentsAnalysis extends Component {
 
         console.log(data);
 
+        
+
         axios.post('/api/synopsis/ChangeStatus',data)
         .then(res=>{
           console.log(res);
+          axios.post('/api/admin/Notify',
+          {
+            userId:this.state.synopsis.supervisor._id,
+            subject: "Synopsis \""+this.state.synopsis.title+"\"'s comments analyzed by the admin and his decision is "+finaldecision,
+            status:"unreaded"
+          })
+          .then(result=>{
+            axios.post('/api/admin/Notify',
+            {
+              userId:this.state.synopsis.student._id,
+              subject: "Your Synopsis has been reviewed and comments forwarded to Your Supervisor and Admin decision on comments is. "+finaldecision,
+              status:"unreaded"
+            })
+            .then(result=>{
+            })
+            .catch(err=>{
+              console.log(err);
+            })
+          })
+          .catch(err=>{
+            console.log(err);
+          })
           alert(res.data.message);
           this.props.history.replace('/AdminDashboard');
         })
@@ -112,7 +136,7 @@ class CommentsAnalysis extends Component {
         <div>
           <Card style={{width:'70%',marginLeft:"15%",marginTop:'2%',}}>
               <CardHeader>
-                <h4>Final Decision Form</h4>
+                <h4>Comments Analysis Form</h4>
               </CardHeader>
               <CardBody>
                 <Form action="" method="post" className="form-horizontal">

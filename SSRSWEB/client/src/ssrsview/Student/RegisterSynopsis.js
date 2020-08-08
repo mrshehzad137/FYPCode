@@ -53,7 +53,43 @@ class RegisterSynopsis extends Component {
     .then(res=>{
       console.log(res);
       alert(res.data.message);
-      this.props.history.replace("/StudentPortal/fileSynopsis");
+      axios.post('/api/admin/Notify',
+      {
+        userId:'5e26ca6014e0a32fa3834fcd',
+        subject: "Student with Reg# "+this.state.regNo+" Register Synopsis having title"+this.state.title,
+        status:"unreaded"
+      })
+      .then(result=>{
+        axios.post('/api/admin/Notify',
+      {
+        userId:this.state.supervisor,
+        subject: "Student with Reg# "+this.state.regNo+" Register Synopsis having title"+this.state.title,
+        status:"unreaded"
+      })
+      .then(result=>{
+        axios.post('/api/admin/Notify',
+      {
+        userId:this.state.cosupervisor,
+        subject: "Student with Reg# "+this.state.regNo+" Register Synopsis having title \""+this.state.title+"\"",
+        status:"unreaded"
+      })
+      .then(result=>{
+        this.props.history.replace("/StudentPortal/fileSynopsis");
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+        
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+      
+     
     })
     .catch(err=>{
       console.log(err);

@@ -33,12 +33,12 @@ import {Link} from 'react-router-dom';
     if(this.props.fsynopsis[0]){
       studentlistItem= this.props.fsynopsis.map((synopsis,index) => 
       <tr scope="row" key={index}>
-      <td>{synopsis.student.regNumber}</td>
-      <td>{synopsis.student.fname+" "+synopsis.student.lname}</td>
+      <td>{(synopsis.student===null)?'':synopsis.student.regNumber}</td>
+      <td>{((synopsis.student===null)?'':synopsis.student.fname)+" "+((synopsis.student===null)?'':synopsis.student.lname)}</td>
       <td>{synopsis.title}</td>
-      <td ><span className="badge badge-success">{synopsis.student.status}</span></td>
+      <td ><span className="badge badge-success">{(synopsis.student===null)?'':synopsis.student.status}</span></td>
       <td>
-      <Link to={'/FacultyPortal/ViewStudent/'+synopsis.student._id}>
+      <Link to={'/FacultyPortal/ViewStudent/'+(synopsis.student===null)?'':synopsis.student._id}>
         <button type="button" onClick={this.toggleSuccess} className="btn btn-outline-primary" style={{marginRight:'10px'}}>
             <i className="icon-eye"></i>
         </button>

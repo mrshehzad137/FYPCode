@@ -52,8 +52,18 @@ class SynopsisUpload extends Component {
     .then(res=>{
       console.log(res);
       alert(res.data.message);
-      this.props.history.replace("/StudentPortal");
-
+      axios.post('/api/admin/Notify',
+      {
+        userId:'5e26ca6014e0a32fa3834fcd',
+        subject: "Name:"+this.state.student.fname+this.state.student.lname+" Registration#:"+this.state.student.regNumber+" has submit Synopsis.",
+        status:"unreaded"
+      })
+      .then(result=>{
+        this.props.history.replace("/StudentPortal");
+      })
+      .catch(err=>{
+        console.log(err);
+      })
     })
     .catch(err=>{
       console.log(err);

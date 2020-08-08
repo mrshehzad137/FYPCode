@@ -36,7 +36,7 @@ export default class Presentation extends Component {
       <td>{presentation.synopsis.title}</td>
       <td>{presentation.student.fname+" "+presentation.student.lname}</td>
       <td>{presentation.student.regNumber}</td> 
-      <td>{new Date(presentation.date).toLocaleString()}</td>
+      <td>{new Date(presentation.date).toLocaleString().substring(0,10)}</td>
       <td>{
       (presentation.timeSlot==="1")?
       "9:00Am - 9:30AM":

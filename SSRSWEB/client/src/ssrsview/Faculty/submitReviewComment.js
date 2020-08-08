@@ -62,8 +62,20 @@ class SubmitReviewForm extends Component {
         })
         .then(res=>{
           console.log(res.data.message);
+          axios.post('/api/admin/Notify',
+          {
+            userId:'5e26ca6014e0a32fa3834fcd',
+            subject: "Synopsis "+this.state.synopsis.title+" received one review comments",
+            status:"unreaded"
+          })
+          .then(result=>{
+            this.props.history.replace('/FacultyPortal');
+          })
+          .catch(err=>{
+            console.log(err);
+          })
           alert(res.data.message);
-          this.props.history.replace('/FacultyPortal');
+          
         })
         .catch(err=>{
           console.log(err);

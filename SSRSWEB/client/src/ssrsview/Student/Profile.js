@@ -3,7 +3,6 @@ import withAuth from '../withAuth';
 import { Card, CardBody, Form, FormGroup,Col,Label,CardFooter,Button } from 'reactstrap';
 import axios from 'axios';
 
-
 class Profile extends Component {
 
   constructor(props) {

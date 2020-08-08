@@ -105,7 +105,18 @@ class StudentResigtration extends Component {
       .then(res=>{
         console.log(res.data);
         alert(res.data.message);
-        this.props.history.replace("/");
+        axios.post('/api/admin/Notify',
+        {
+          userId:'5e26ca6014e0a32fa3834fcd',
+          subject: "Name:"+this.state.fname+this.state.lname+" Registration#:"+this.state.regNo+" has been registered",
+          status:"unreaded"
+        })
+        .then(result=>{
+          this.props.history.replace("/");
+        })
+        .catch(err=>{
+          console.log(err);
+        }) 
       })
       .catch(err=>{
         console.log(err);

@@ -27,7 +27,8 @@ class StudentHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentprofileImage:''
+      studentprofileImage:'',
+      notificationcount:''
     };
     this.logoutHandler = this.logoutHandler.bind(this);
   }
@@ -52,6 +53,17 @@ class StudentHeader extends Component {
       console.log(err);
     })
 
+    axios.post('/api/admin/GetAllunread',{userId:id})
+    .then(res=>{
+      var countarray = res.data.list;
+      console.log(countarray.length);
+      this.setState({
+        notificationcount:countarray.length
+      })
+    })
+    .catch(err=>{
+      console.log(err);
+    })
   }
 
   render() {
@@ -83,7 +95,7 @@ class StudentHeader extends Component {
             <NavLink to="/StudentPortal/Notification" className="nav-link">
               <i className="icon-bell"></i>
               <Badge pill color="danger">
-                5
+                {this.state.notificationcount}
               </Badge>
             </NavLink>
           </NavItem>

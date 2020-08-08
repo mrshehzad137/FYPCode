@@ -43,6 +43,7 @@ class AdminDashboard extends Component {
 
   componentWillMount(){
       console.log("fsfsfsdfds"+this.props.user.userType);
+      localStorage.setItem('user_id', this.props.user.userId);
       if(this.props.user.userType!=='Admin'){
         alert("You can not access Admin Dashboard");
         Auth.logout();

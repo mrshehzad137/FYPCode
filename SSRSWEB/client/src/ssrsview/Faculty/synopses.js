@@ -22,12 +22,24 @@ class Synopsis extends Component {
     });
   }
 
-  acknowledgeSynopsis(id){
+  acknowledgeSynopsis(id,sid){
     return function(){
       axios.post('/api/faculty/acknowledgeSynopsis',{synopsisId:id})
       .then(res=>{
         alert(res.data.message);
-        window.location.reload();
+        
+        axios.post('/api/admin/Notify',
+        {
+          userId: sid,
+          subject: "Your Synopsis has been approved by your supervisor please upload files",
+          status:"unreaded"
+        })
+        .then(result=>{
+          window.location.reload();
+        })
+        .catch(err=>{
+          console.log(err);
+        })
       })
       .catch(err=>{
         alert(err)
@@ -49,8 +61,8 @@ class Synopsis extends Component {
      synopsislistItem = this.props.fsynopsis.map((synopsis,index) => 
                  <tr scope="row" key={index}>
                  <td>{synopsis.title}</td>
-                 <td>{synopsis.student.fname+" "+synopsis.student.lname}</td>
-                 <td>{synopsis.student.regNumber}</td>
+                 <td>{((synopsis.student===null)?'':synopsis.student.fname)+" "+((synopsis.student===null)?'':synopsis.student.lname)}</td>
+                 <td>{(synopsis.student===null)?'':synopsis.student.regNumber}</td>
                  <td ><span className="badge badge-success">{synopsis.status}</span></td>
                  <td>
                  <Link to={'/FacultyPortal/ViewSynopsis/'+synopsis._id}>
@@ -61,7 +73,7 @@ class Synopsis extends Component {
                   <button type="button" class="btn btn-outline-success" style={{marginRight:'10px'}} hidden={(synopsis.filepath)?false:true}>
                     <a href={"http://localhost:4000/"+synopsis.filepath} target="_blank"><i class="icon-cloud-download"></i></a>
                   </button>
-                  <button type="button" class="btn btn-outline-primary" onClick={this.acknowledgeSynopsis(synopsis._id)}
+                  <button type="button" class="btn btn-outline-primary" onClick={this.acknowledgeSynopsis(synopsis._id,(synopsis.student===null)?'':synopsis.student._id)}
                    hidden={(synopsis.status==="Registering")?false:true}>
                     <i class="icon-check"></i>&nbsp;Approve
                   </button>

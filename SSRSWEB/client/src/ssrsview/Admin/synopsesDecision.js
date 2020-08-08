@@ -33,7 +33,7 @@ export default class SynopsisDecisions extends Component {
     const synopsislistItem = this.state.synopses.map((synopsis,index) => 
       <tr scope="row" key={index}>
       <td>{synopsis.title}</td>
-      <td>{synopsis.student.fname+" "+synopsis.student.lname}</td>
+      <td>{(synopsis.student?synopsis.student.fname:'')+" "+(synopsis.student?synopsis.student.lname:'')}</td>
       <td>{synopsis.supervisor.fname+" "+synopsis.supervisor.lname}</td>
       <td ><span className="badge badge-success">{synopsis.status}</span></td>
       <td>

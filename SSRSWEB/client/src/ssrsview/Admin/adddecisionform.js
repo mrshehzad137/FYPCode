@@ -79,7 +79,29 @@ class AddDecisionForm extends Component {
         .then(res=>{
           console.log(res);
           alert(res.data.message);
-          this.props.history.replace('/AdminDashboard');
+          axios.post('/api/admin/Notify',
+          {
+            userId: this.state.synopsis.student._id,
+            subject: "Admin add the final decision of Synopsis \""+this.state.synopsis.title+"\" and decision is "+finaldecision,
+            status:"unreaded"
+          })
+          .then(result=>{
+            axios.post('/api/admin/Notify',
+            {
+              userId: this.state.synopsis.supervisor._id,
+              subject: "Admin add the final decision of Synopsis \""+this.state.synopsis.title+"\" and decision is "+finaldecision,
+              status:"unreaded"
+            })
+            .then(result=>{
+              this.props.history.replace('/AdminDashboard');
+            })
+            .catch(err=>{
+              console.log(err);
+            })
+          })
+          .catch(err=>{
+            console.log(err);
+          }) 
         })
         .catch(err=>{
           console.log(err);

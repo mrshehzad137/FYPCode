@@ -67,8 +67,53 @@ class ReviewTaskForm extends Component {
         axios.post('/api/admin/assignForReview',data)
         .then(res=>{
           console.log(res);
+          axios.post('/api/admin/Notify',
+          {
+            userId: this.state.synopsis.student._id,
+            subject: "Your Synopsis has been sent to Reviewers for Review.",
+            status:"unreaded"
+          })
+          .then(result=>{
+            axios.post('/api/admin/Notify',
+            {
+              userId:this.state.reviewer1,
+              subject: "A review task assigned to you by Admin",
+              status:"unreaded"
+            })
+            .then(result=>{
+              axios.post('/api/admin/Notify',
+              {
+                userId: this.state.reviewer2,
+                subject: "A review task assigned to you by Admin",
+                status:"unreaded"
+              })
+              .then(result=>{
+                axios.post('/api/admin/Notify',
+                {
+                  userId: this.state.reviewer3,
+                  subject: "A review task assigned to you by Admin",
+                  status:"unreaded"
+                })
+                .then(result=>{
+                  this.props.history.replace('/AdminDashboard');
+                })
+                .catch(err=>{
+                  console.log(err);
+                })
+              })
+              .catch(err=>{
+                console.log(err);
+              })
+            })
+            .catch(err=>{
+              console.log(err);
+            })
+          })
+          .catch(err=>{
+            console.log(err);
+          })
+
           alert(res.data.message);
-          this.props.history.replace('/AdminDashboard');
         })
         .catch(err=>{
           console.log(err);

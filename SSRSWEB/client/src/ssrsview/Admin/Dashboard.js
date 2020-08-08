@@ -123,7 +123,9 @@ class Dashboard extends Component {
   render() {   
 
     const studentlistItem = this.props.studentList.map((student_list,index) => 
+            
                  <tr scope="row" key={index}>
+                    { console.log(student_list.Synopsis.length)}
                  <td>{student_list.regNumber}</td>
                  <td>{student_list.fname+" "+student_list.lname}</td>
                  <td>{(student_list.Synopsis[0])?student_list.Synopsis[0].title:'Not submitted'}</td>
@@ -137,15 +139,15 @@ class Dashboard extends Component {
                  <td>
                   <button hidden={((student_list.Synopsis[0])?student_list.Synopsis[0].status==="Submitted":false)?false:true} type="button" className="btn btn-outline-secondary">
                     {(student_list.Synopsis[0])?
-                    <Link to={'/AdminDashboard/addReviewtask/'+student_list.Synopsis[0]._id} ><i className="icon-user-following"></i>&nbsp;Assign for Review</Link>:
+                    <Link to={'/AdminDashboard/addReviewtask/'+(student_list.Synopsis.length!==0?student_list.Synopsis[0]._id:'')} ><i className="icon-user-following"></i>&nbsp;Assign for Review</Link>:
                     <Link to={'/AdminDashboard/addReviewtask/'} ><i className="icon-user-following"></i>&nbsp;Assign for Review</Link>
                   }
                   </button >
                   <button type="button" className="btn btn-outline-success" hidden={((student_list.Synopsis[0])?(student_list.Synopsis[0].commenents.length===3 && student_list.Synopsis[0].status==="Commented"):true)?false:true}>
-                    <Link to={'/AdminDashboard/commentsAnalysis/'+student_list.Synopsis[0]._id}><i className="icon-user-following"></i>&nbsp; Analyze Comments</Link>
+                    <Link to={'/AdminDashboard/commentsAnalysis/'+(student_list.Synopsis.length===0)?'':student_list.Synopsis[0]._id}><i className="icon-user-following"></i>&nbsp; Analyze Comments</Link>
                   </button>
-                  <button type="button" className="btn btn-outline-success" onClick={this.presented(student_list.Synopsis[0]._id)}
-                  hidden={(student_list.Synopsis[0].status==="PresentationSchedule")?false:true}>
+                  <button type="button" className="btn btn-outline-success" onClick={this.presented((student_list.Synopsis.length===0)?'':student_list.Synopsis[0]._id)}
+                  hidden={((student_list.Synopsis.length===0)?true:student_list.Synopsis[0].status==="PresentationSchedule")?false:true}>
                     <i className="icon-user-following"></i>&nbsp; Presented
                   </button>
                  </td> 

@@ -45,7 +45,25 @@ export default class ReviewComments extends Component {
       .then(res=>{
         console.log(res);
         alert(res.data.message);
-        window.location.reload(false);
+        axios.post('/api/synopsis/getbyId',{id:synopId})
+        .then(res=>{
+          const synop=res.data.data;
+          axios.post('/api/admin/Notify',
+          {
+            userId:synop.supervisor._id,
+            subject: "Synopsis \""+synop.title+"\" has been reviewed and comments forwarded to you.",
+            status:"unreaded"
+          })
+          .then(result=>{
+            window.location.reload(false);
+          })
+          .catch(err=>{
+            console.log(err);
+          })
+        })
+        .catch(err=>{
+          console.log(err);
+        })
       })
       .catch(err=>{
         console.log(err);

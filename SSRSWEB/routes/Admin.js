@@ -10,6 +10,7 @@ const {Faculty}=require('../models/facultyModel');
 const {Token}=require('../models/token');
 const {Comments} = require("../models/reviewCommentModel");
 const {Presentation}=require("../models/presentationModel");
+const {Notification}=require('../models/notificationModel');
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const config = require("config");
@@ -171,6 +172,23 @@ router.post('/signin',(req,res)=>{
       });
 
 
+
+});
+
+router.post('/getprofile',(req,res)=>{
+  Admin.findById(req.body.adminid)
+  .then(admin=>{
+      console.log(admin);
+      res.status(200).json({
+        data:admin
+      })
+  })
+  .catch(err=>{
+    res.status(404).json({
+      message:"Can not find admin",
+      error: err
+  });
+  })
 
 });
 
@@ -633,5 +651,112 @@ router.get('/synopsisToDecision',(req,res)=>{
 
 });
 
+
+router.post('/updateProfile',upload.single('profilePicture'), (req,res)=>{
+  
+  console.log(req.body)
+  Admin.findById(req.body.id)
+  .then(admin=>{
+
+    console.log(admin);
+    admin.profileImage=req.file.path;
+    admin.save()
+    .then(result=>{
+        res.status(200).json({
+          message:"Profile Updated Success",
+          data:result
+        });
+      })
+    .catch(err=>{
+      res.status(404).json({
+        error:err
+      })
+    })
+
+  })
+  .catch(err=>{
+    res.status(404).json({
+      error:err
+    })
+  })
+
+});
+
+router.post('/Notify',(req,res)=>{
+  console.log("am here here here");
+    const date=new Date();
+    const notification= new Notification({
+      userid:req.body.userId,
+      date:date,
+      subject:req.body.subject,
+      status:req.body.status
+    });
+
+    notification.save()
+    .then(response=>{
+      res.status(200).json({
+        result:response
+      })
+    }).catch(err=>{
+      res.status(404).json({
+        error:err
+      })
+    })
+});
+
+router.post('/GetAllunread',(req,res)=>{
+  Notification.find({status:'unreaded',userid:req.body.userId})
+  .then(result=>{
+    console.log(result);
+    res.status(200).json({
+      list:result
+    })
+  })
+  .catch(err=>{
+    res.status(404).json({
+      error:err
+    })
+  })
+});
+
+router.post('/GetAllNotify',(req,res)=>{
+  Notification.find({userid:req.body.userId})
+  .then(result=>{
+    console.log(result);
+    res.status(200).json({
+      list:result
+    })
+  })
+  .catch(err=>{
+    res.status(404).json({
+      error:err
+    })
+  })
+});
+
+router.post('/NotificationStatusChange',(req,res)=>{
+
+  Notification.findById(req.body.notifyId)
+  .then(notify=>{
+    notify.status="readed"
+    notify.save()
+    .then(result=>{
+      res.status(200).json({
+        message:"status changed"
+      })
+    })
+    .catch(err=>{
+      res.status(404).json({
+        error:err
+      })
+    })
+  })
+  .catch(err=>{
+    res.status(404).json({
+      error:err
+    })
+  })
+
+})
 
 module.exports = router;
