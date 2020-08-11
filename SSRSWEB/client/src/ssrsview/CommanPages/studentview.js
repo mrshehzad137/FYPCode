@@ -51,7 +51,7 @@ class StudentShow extends Component {
                 <h3 >Student</h3>
                 <br></br>
                 <br></br>
-                <img src={"http://localhost:4000/"+(this.state.student.profileImage?this.state.student.profileImage:'')} width="250px" height="250px" alt="Please Select Profile Picture "/>
+                <img src={"https://fyp-ssrs.herokuapp.com/"+(this.state.student.profileImage?this.state.student.profileImage:'')} width="250px" height="250px" alt="Please Select Profile Picture "/>
                 <br></br>
                 <br></br>
                 </div>

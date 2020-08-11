@@ -7,25 +7,30 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-export default class SynopsisStatus extends Component {
+import axios from 'axios';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+
+export default class RTask extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       user: 'Ali',
+      task:[],
+      tableheads:['Synopsis Title','Assigned Date','Due Date','Status','Action']
     }
   }
 
-  UNSAFE_componentWillMount(){
-    getdata= async(key)=>{
-        const data=await AsyncStorage.getItem(key);
-        if(data==="Faculty"){
-            this.props. navigation.navigate("FacultyPortal");
-        }
+  // UNSAFE_componentWillMount(){
+  //   getdata= async(key)=>{
+  //       const data=await AsyncStorage.getItem(key);
+  //       if(data==="Faculty"){
+  //           this.props. navigation.navigate("FacultyPortal");
+  //       }
         
-     }
-      getdata('UserType');
-  }
+  //    }
+  //     getdata('UserType');
+  // }
 
   onClickListener = () =>{
     const clearStorage = async () => {
@@ -43,62 +48,71 @@ export default class SynopsisStatus extends Component {
       this.props. navigation.navigate("Main");
   }
 
+  componentDidMount(){
+    getdata= async(key)=>{
+      const fid=await AsyncStorage.getItem(key);
+      axios.post('http://192.168.8.100:4000/api/faculty/getReviewTasks',{id:fid})
+      .then(res=>{
+        this.setState({
+          task:res.data.list
+        })
+      })
+      .catch(err=>{
+        console.log(err);
+    })
+    }
+          
+  getdata('Userid');
+
+    
+  }
+
   render() {
       var {user}=this.state;
-      
+      var {task}=this.state;
+      var {tableheads} =this.state;
+      console.log(task);
     //   Alert.alert("mesaage",user);
     return (
       <View style={styles.container}>
          <Text>Review tasks</Text>
-         <Text>{user}</Text>
+         {task.map((data,index)=>
+         <View key={index}>
+           <Text>------------------------------------------------------</Text>
+           <Text>Task Id:{index+1}</Text>
+           <Text>Synopsis Title: {data.synopsis.title}</Text>
+           <Text>Assigned Date: {data.assignedDate.substr(0,10)}</Text>
+           <Text>Deadline: {data.deadline.substr(0,10)}</Text>
+           <Text>Status: {data.status}</Text>
+           <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.props.navigation.navigate("FDecsion")}>
+             <Text style={styles.loginText}>Submit Task</Text>
+           </TouchableHighlight>
+           <Text>------------------------------------------------------</Text>
+         </View>
+         )}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+  head: { height: 40, backgroundColor: '#f1f8ff' },
+  text: { margin: 6 },
+  buttonContainer: {
+    height:45,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#DCDCDC',
+    marginBottom:20,
+    marginTop:15,
+    width:150,
+    borderRadius:30,
   },
-//   inputContainer: {
-//       borderBottomColor: '#F5FCFF',
-//       backgroundColor: '#FFFFFF',
-//       borderRadius:30,
-//       borderBottomWidth: 1,
-//       width:250,
-//       height:45,
-//       marginBottom:20,
-//       flexDirection: 'row',
-//       alignItems:'center'
-//   },
-//   inputs:{
-//       height:45,
-//       marginLeft:16,
-//       borderBottomColor: '#FFFFFF',
-//       flex:1,
-//   },
-//   inputIcon:{
-//     width:30,
-//     height:30,
-//     marginLeft:15,
-//     justifyContent: 'center'
-//   },
-//   buttonContainer: {
-//     height:45,
-//     flexDirection: 'row',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     marginBottom:20,
-//     width:250,
-//     borderRadius:30,
-//   },
-//   loginButton: {
-//     backgroundColor: "#00b5ec",
-//   },
-//   loginText: {
-//     color: 'white',
-//   }
+  loginButton: {
+    backgroundColor: "#00b5ec",
+  },
+  loginText: {
+    color: 'white',
+  }
 });

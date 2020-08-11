@@ -7,7 +7,7 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-export default class SynopsisStatus extends Component {
+export default class RegistSnopsis extends Component {
 
   constructor(props) {
     super(props);

@@ -88,7 +88,7 @@ class Faculty extends Component {
       <button type="button" class="btn btn-pill btn-primary" onClick={this.deleteRole(facultymember._id,"Supervisor")}
       hidden={(facultymember.isSupervisor)?false:true} style={{marginLeft:'10px'}}>Supervisor</button>
     </td>
-    <td> <Progress animated color="success" value={(facultymember.performance)?facultymember.performance:"80"} className="mb-3" /></td>
+    <td> <Progress animated color="success" value={Math.floor(Math.random() * 100) + 1 } className="mb-3" /></td>
     <td>
       <Link to={'/AdminDashboard/facultyShow/'+facultymember._id}>
       <button type="button"  class="btn btn-outline-primary" style={{marginRight:'10px'}}>

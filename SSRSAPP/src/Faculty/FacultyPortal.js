@@ -24,7 +24,7 @@ export default class FacultyPortal extends Component {
     getdata= async(key)=>{
         const data=await AsyncStorage.getItem(key);
         if(data!=="Faculty"){
-            this.props. navigation.navigate("StudentPortal");
+            this.props.navigation.navigate("StudentPortal");
         }
         
      }
@@ -48,7 +48,21 @@ export default class FacultyPortal extends Component {
   render() {
     return (
       <View style={styles.container}>
-         <Text>Faculty Portal</Text>
+         <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.props.navigation.navigate("FRTask")}>
+          <Text style={styles.loginText}>Review Tasks</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.props.navigation.navigate("FSynopsisStatus")}>
+          <Text style={styles.loginText}>Synopsis</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.props.navigation.navigate("FRComments")}>
+          <Text style={styles.loginText}>Review Comments</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.props.navigation.navigate("FPresentation")}>
+          <Text style={styles.loginText}>Presentations</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.props.navigation.navigate("FDecsion")}>
+          <Text style={styles.loginText}>Decisions</Text>
+        </TouchableHighlight>
          <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('login')}>
           <Text style={styles.loginText}>Logout</Text>
         </TouchableHighlight>

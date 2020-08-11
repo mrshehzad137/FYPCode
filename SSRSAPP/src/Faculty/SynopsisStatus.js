@@ -7,25 +7,27 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 export default class SynopsisStatus extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       user: 'Ali',
+      synopsis:[]
     }
   }
 
-  UNSAFE_componentWillMount(){
-    getdata= async(key)=>{
-        const data=await AsyncStorage.getItem(key);
-        if(data==="Faculty"){
-            this.props. navigation.navigate("FacultyPortal");
-        }
+  // UNSAFE_componentWillMount(){
+  //   getdata= async(key)=>{
+  //       const data=await AsyncStorage.getItem(key);
+  //       if(data==="Faculty"){
+  //           this.props. navigation.navigate("FacultyPortal");
+  //       }
         
-     }
-      getdata('UserType');
-  }
+  //    }
+  //     getdata('UserType');
+  // }
 
   onClickListener = () =>{
     const clearStorage = async () => {
@@ -43,14 +45,48 @@ export default class SynopsisStatus extends Component {
       this.props. navigation.navigate("Main");
   }
 
+  componentDidMount(){
+    getdata= async(key)=>{
+      const fid=await AsyncStorage.getItem(key);
+      axios.post('http://192.168.8.100:4000/api/faculty/getStudents',{id:fid})
+      .then(res=>{
+        this.setState({
+          synopsis:res.data.data
+        })
+      })
+      .catch(err=>{
+        console.log(err);
+    })
+    }
+          
+  getdata('Userid');
+
+    
+  }
+  
+
   render() {
       var {user}=this.state;
-      
+      var {synopsis}=this.state;
+      console.log(synopsis.student);
     //   Alert.alert("mesaage",user);
     return (
       <View style={styles.container}>
-         <Text>Student Synopsis Status</Text>
-         <Text>{user}</Text>
+         <Text>Student Synopsis</Text>
+         {synopsis.map((synopsis,index)=>
+         <View key={index}>
+           <Text>------------------------------------------------------</Text>
+           <Text>Sr#:{index+1}</Text>
+           <Text>Synopsis Title: {synopsis.title}}</Text>
+           <Text>Student Name: </Text>
+           <Text>Student Reg: {(synopsis.student===null)?'':synopsis.student.regNumber}</Text>
+           <Text>Status: {synopsis.status}</Text>
+           {/* <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.props.navigation.navigate("FDecsion")}>
+             <Text style={styles.loginText}>Submit Task</Text>
+           </TouchableHighlight> */}
+           <Text>------------------------------------------------------</Text>
+         </View>
+         )}
       </View>
     );
   }

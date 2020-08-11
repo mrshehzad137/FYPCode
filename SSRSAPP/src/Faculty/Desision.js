@@ -16,16 +16,16 @@ export default class Decsion extends Component {
     }
   }
 
-  UNSAFE_componentWillMount(){
-    getdata= async(key)=>{
-        const data=await AsyncStorage.getItem(key);
-        if(data==="Faculty"){
-            this.props. navigation.navigate("FacultyPortal");
-        }
+  // UNSAFE_componentWillMount(){
+  //   getdata= async(key)=>{
+  //       const data=await AsyncStorage.getItem(key);
+  //       if(data==="Faculty"){
+  //           this.props. navigation.navigate("FacultyPortal");
+  //       }
         
-     }
-      getdata('UserType');
-  }
+  //    }
+  //     getdata('UserType');
+  // }
 
   onClickListener = () =>{
     const clearStorage = async () => {
@@ -49,8 +49,7 @@ export default class Decsion extends Component {
     //   Alert.alert("mesaage",user);
     return (
       <View style={styles.container}>
-         <Text>Student Portal</Text>
-         <Text>{user}</Text>
+         <Text>No Data</Text>
       </View>
     );
   }

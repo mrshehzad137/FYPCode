@@ -71,21 +71,21 @@ export default class ReviewComments extends Component {
                             <h4>Comments By 1st Reviewer</h4>
                               <p style={{color:(synopsis.commenents.length>=1)?'blue':'green'}}>{(synopsis.commenents.length>=1)?synopsis.commenents[0].commenents:'Please download the file by clicking the below button'}</p>
                               <button type="button" class="btn btn-outline-success" style={{marginRight:'10px'}} hidden={(synopsis.commenents.length>=1)?(synopsis.commenents[0].filepath)?false:true:true}>
-                                  <i class="icon-cloud-download"></i>
+                              <a href={"https://fyp-ssrs.herokuapp.com/"+synopsis.commenents[0].filepath} target="_blank"><i class="icon-cloud-download"></i></a>
                               </button>
                         </div>
                         <div hidden={(synopsis.commenents.length>=2)?false:true}>
                             <h4>Comments By 2nd Reviewer</h4>
                             <p style={{color:(synopsis.commenents.length>=2)?'blue':'green'}}>{(synopsis.commenents.length>=2)?synopsis.commenents[1].commenents:'Please download the file by clicking the below button'}</p>
                             <button type="button" class="btn btn-outline-success" style={{marginRight:'10px'}} hidden={(synopsis.commenents.length>=2)?(synopsis.commenents[1].filepath)?false:true:true}>
-                                <i class="icon-cloud-download"></i>
+                            <a href={"https://fyp-ssrs.herokuapp.com/"+synopsis.commenents[1].filepath} target="_blank"><i class="icon-cloud-download"></i></a>
                             </button>
                         </div>
                         <div hidden={(synopsis.commenents.length>=3)?false:true}>
                             <h4>Comments By 3rd Reviewer</h4>
                             <p style={{color:(synopsis.commenents.length>=3)?'blue':'green'}}>{(synopsis.commenents.length>=3)?synopsis.commenents[2].commenents:'Please download the file by clicking the below button'}</p>
                             <button type="button" class="btn btn-outline-success" style={{marginRight:'10px'}} hidden={(synopsis.commenents.length>=3)?(synopsis.commenents[2].filepath)?false:true:true}>
-                                <i class="icon-cloud-download"></i>
+                            <a href={"https://fyp-ssrs.herokuapp.com/"+synopsis.commenents[2].filepath} target="_blank"><i class="icon-cloud-download"></i></a>
                             </button>
                         </div>
                       </div>

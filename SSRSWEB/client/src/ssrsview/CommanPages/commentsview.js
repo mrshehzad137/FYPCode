@@ -66,7 +66,7 @@ class CommentsShow extends Component {
                         {
                             (this.state.comments.filepath)? 
                             <button type="button" class="btn btn-outline-success" style={{marginRight:'10px'}} hidden={(this.state.comments.filepath)?false:true}>
-                            <a href={"http://localhost:4000/"+this.state.comments.filepath} target="_blank"><i class="icon-cloud-download"></i></a>
+                            <a href={"https://fyp-ssrs.herokuapp.com/"+this.state.comments.filepath} target="_blank"><i class="icon-cloud-download"></i></a>
                             </button>:<p>No File Atteched..!!!</p>
                         }
                     </Col>

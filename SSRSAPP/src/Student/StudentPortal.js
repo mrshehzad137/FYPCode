@@ -71,8 +71,16 @@ export default class StudentPortal extends Component {
       
     //   Alert.alert("mesaage",user);
     return (
-     <View>
-       <Text>Ali</Text>
+     <View style={styles.container}>
+       <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.props.navigation.navigate("SSynopsisStatus")}>
+          <Text style={styles.loginText}>Synopsis Status</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.props.navigation.navigate("SPresentation")}>
+          <Text style={styles.loginText}>Presentations</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.props.navigation.navigate("SDecsion")}>
+          <Text style={styles.loginText}>Decisions</Text>
+        </TouchableHighlight>
        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('login')}>
           <Text style={styles.loginText}>Logout</Text>
         </TouchableHighlight>

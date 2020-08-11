@@ -4,9 +4,18 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Logins from '../src/Student/Login';
 import Loginf from '../src/Faculty/Login';
 import Main from '../src/Main';
+import Decsion from '../src/Faculty/Desision';
+import Presentation from '../src/Faculty/Presentation';
+import RComments from '../src/Faculty/ReviewComments';
+import RTask from '../src/Faculty/Reviewtask';
+import SynopsisStatus from '../src/Faculty/SynopsisStatus';
+import SubmitTask from '../src/Faculty/TaskSubmit';
 import SplashScreen from '../src/SplashScreen';
 import StudentPortal from '../src/Student/StudentPortal';
 import FacultyPortal from '../src/Faculty/FacultyPortal';
+import SSynopsisStatus from '../src/Student/SynopsisStatus';
+import SPresentation from '../src/Student/Presentation';
+import SDecsion from '../src/Student/Desision';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const Stack = createStackNavigator();
@@ -75,7 +84,29 @@ export default class MyStack extends React.Component {
       name="StudentPortal" 
       component={StudentPortal} 
       options={
-        { title: 'Student Dashboard' }
+        { title: 'Student Dashboard' },
+        {headerLeft: null}
+      }
+   />
+   <Stack.Screen 
+      name="SPresentation" 
+      component={SPresentation} 
+      options={
+        { title: 'Presentation' }
+      }
+   />
+   <Stack.Screen 
+      name="SSynopsisStatus" 
+      component={SSynopsisStatus} 
+      options={
+        { title: 'Synopsis Status' }
+      }
+   />
+   <Stack.Screen 
+      name="SDecsion" 
+      component={SDecsion} 
+      options={
+        { title: 'Synopsis Decision' }
       }
    />
     <Stack.Screen 
@@ -84,6 +115,42 @@ export default class MyStack extends React.Component {
       options={
         { title: 'Faculty Dashboard' },
         {headerLeft: null} 
+    }/>
+    <Stack.Screen 
+      name="FSubmitTask" 
+      component={SubmitTask} 
+      options={
+        { title: 'Faculty Submit Task' }
+    }/>
+    <Stack.Screen 
+      name="FSynopsisStatus" 
+      component={SynopsisStatus} 
+      options={
+        { title: 'Synopsis Status' }
+      }/>
+      <Stack.Screen 
+      name="FRTask" 
+      component={RTask} 
+      options={
+        { title: 'Faculty Tasks' }
+      }/>
+      <Stack.Screen 
+      name="FRComments" 
+      component={RComments} 
+      options={
+        { title: 'Review Comments' }
+      }/>
+      <Stack.Screen 
+      name="FPresentation" 
+      component={Presentation} 
+      options={
+        { title: 'Presentations Schedule' }
+      }/>
+      <Stack.Screen 
+      name="FDecsion" 
+      component={Decsion} 
+      options={
+        { title: 'Synopsis Decision' }
       }/>
     </>
     }

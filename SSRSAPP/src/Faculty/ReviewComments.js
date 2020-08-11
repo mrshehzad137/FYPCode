@@ -7,7 +7,7 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-export default class SynopsisStatus extends Component {
+export default class RComments extends Component {
 
   constructor(props) {
     super(props);
@@ -16,16 +16,16 @@ export default class SynopsisStatus extends Component {
     }
   }
 
-  UNSAFE_componentWillMount(){
-    getdata= async(key)=>{
-        const data=await AsyncStorage.getItem(key);
-        if(data==="Faculty"){
-            this.props. navigation.navigate("FacultyPortal");
-        }
+  // UNSAFE_componentWillMount(){
+  //   getdata= async(key)=>{
+  //       const data=await AsyncStorage.getItem(key);
+  //       if(data==="Faculty"){
+  //           this.props. navigation.navigate("FacultyPortal");
+  //       }
         
-     }
-      getdata('UserType');
-  }
+  //    }
+  //     getdata('UserType');
+  // }
 
   onClickListener = () =>{
     const clearStorage = async () => {
