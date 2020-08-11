@@ -39,7 +39,7 @@ export default class ReviewTask extends Component {
       <td>
 
         <button type="button" class="btn btn-outline-success" style={{marginRight:'10px'}}>
-            <a href={"http://localhost:4000/"+task.synopsis.filepath} target="_blank"><i class="icon-cloud-download"></i></a>
+            <a href={"https://fyp-ssrs.herokuapp.com/"+task.synopsis.filepath} target="_blank"><i class="icon-cloud-download"></i></a>
         </button>
         <button type="button" class="btn btn-outline-primary" hidden={(task.status==="Assigned")?false:true} >
             <Link to={'/FacultyPortal/SubmitReviewForm/'+task._id+'/'+task.synopsis._id}><i class="icon-check"></i>&nbsp;Submit</Link>  

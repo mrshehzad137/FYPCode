@@ -91,7 +91,7 @@ class AdminHeader extends Component {
           </NavItem>
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
-              <img src={"http://localhost:4000/"+(this.state.adminprofile?this.state.adminprofile:'')}  className="img-avatar" alt="admin@bootstrapmaster.com" />
+              <img src={"https://fyp-ssrs.herokuapp.com/"+(this.state.adminprofile?this.state.adminprofile:'')}  className="img-avatar" alt="admin@bootstrapmaster.com" />
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem><i className="fa fa-user"></i><Link to='/AdminDashboard/profile' style={{textDecoration:'none'}}>Profile</Link></DropdownItem>

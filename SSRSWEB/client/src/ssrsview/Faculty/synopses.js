@@ -71,7 +71,7 @@ class Synopsis extends Component {
                     </button>
                   </Link>
                   <button type="button" class="btn btn-outline-success" style={{marginRight:'10px'}} hidden={(synopsis.filepath)?false:true}>
-                    <a href={"http://localhost:4000/"+synopsis.filepath} target="_blank"><i class="icon-cloud-download"></i></a>
+                    <a href={"https://fyp-ssrs.herokuapp.com/"+synopsis.filepath} target="_blank"><i class="icon-cloud-download"></i></a>
                   </button>
                   <button type="button" class="btn btn-outline-primary" onClick={this.acknowledgeSynopsis(synopsis._id,(synopsis.student===null)?'':synopsis.student._id)}
                    hidden={(synopsis.status==="Registering")?false:true}>

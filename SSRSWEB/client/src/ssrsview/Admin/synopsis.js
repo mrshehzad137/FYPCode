@@ -63,7 +63,7 @@ class Synopsis extends Component {
                   </button>
                   </Link>
                   <button type="button" class="btn btn-outline-success" style={{marginRight:'10px'}} hidden={(synopsis_list.filepath)?false:true}>
-                  <a href={"http://localhost:4000/"+synopsis_list.filepath} target="_blank"><i class="icon-cloud-download"></i></a>
+                  <a href={"https://fyp-ssrs.herokuapp.com/"+synopsis_list.filepath} target="_blank"><i class="icon-cloud-download"></i></a>
                   </button>
                   <button type="button" class="btn btn-outline-secondary" hidden={(synopsis_list.status==="Submitted")?false:true}>
                     <Link to={'/AdminDashboard/addReviewtask/'+synopsis_list._id} ><i class="icon-user-following"></i>&nbsp;Assign for Review</Link> 

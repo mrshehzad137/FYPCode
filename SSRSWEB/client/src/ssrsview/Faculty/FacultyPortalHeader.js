@@ -90,7 +90,7 @@ class FacultyHeader extends Component {
           </NavItem>
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
-              <img src={'http://localhost:4000/'+this.state.facultyprofileImage} className="img-avatar" alt="admin@bootstrapmaster.com" />
+              <img src={'https://fyp-ssrs.herokuapp.com/'+this.state.facultyprofileImage} className="img-avatar" alt="admin@bootstrapmaster.com" />
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem><i className="fa fa-user"></i><Link to='/FacultyPortal/Profile' style={{textDecoration:'none'}}>Profile</Link></DropdownItem>

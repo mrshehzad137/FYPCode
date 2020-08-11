@@ -139,7 +139,7 @@ import {
                 <h3 >Faculty Profile</h3>
                 <br></br>
                 <br></br>
-                <img src={(this.state.fileURL)?this.state.fileURL:"http://localhost:4000/"+this.props.fprofile.profileImage} width="250px" height="250px" alt="Please Select Profile Picture "/>
+                <img src={(this.state.fileURL)?this.state.fileURL:"https://fyp-ssrs.herokuapp.com/"+this.props.fprofile.profileImage} width="250px" height="250px" alt="Please Select Profile Picture "/>
                 <br></br>
                 <br></br>
                 <input type="file" onChange={this.handleImageChange}></input>

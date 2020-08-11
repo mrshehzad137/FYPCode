@@ -96,7 +96,7 @@ export default class Profile extends Component {
               <h3 >Admin</h3>
               <br></br>
               <br></br>
-              <img src={(this.state.fileURL)?this.state.fileURL:"http://localhost:4000/"+(this.state.admin.profileImage?this.state.admin.profileImage:'')} width="250px" height="250px" alt="Please Select Profile Picture "/>
+              <img src={(this.state.fileURL)?this.state.fileURL:"https://fyp-ssrs.herokuapp.com/"+(this.state.admin.profileImage?this.state.admin.profileImage:'')} width="250px" height="250px" alt="Please Select Profile Picture "/>
               <br></br>
               <br></br>
               <input type="file" onChange={this.handleImageChange} style={{display:(this.state.canUpdate?'inline':'none')}}></input>

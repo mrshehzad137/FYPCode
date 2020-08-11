@@ -426,7 +426,7 @@ router.get('/getAllSupervisor',(req,res)=>{
 
 
 router.post('/getReviewTasks',(req,res)=>{
-
+  console.log(req.body.id);
   ReviewTask.find({reviewer:req.body.id}).populate('synopsis').populate('commenents')
   .then(programsList=>{
     res.status(200).json({

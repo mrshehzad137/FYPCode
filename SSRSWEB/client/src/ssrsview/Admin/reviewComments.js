@@ -95,7 +95,7 @@ export default class ReviewComments extends Component {
           </button>
         </Link>
         <button type="button" class="btn btn-outline-success" style={{marginRight:'10px'}} hidden={(task.commenents[0].filepath)?false:true}>
-        <a href={"http://localhost:4000/"+task.commenents[0].filepath} target="_blank"><i class="icon-cloud-download"></i></a>
+        <a href={"https://fyp-ssrs.herokuapp.com/"+task.commenents[0].filepath} target="_blank"><i class="icon-cloud-download"></i></a>
         </button>
         <button type="button" class="btn btn-outline-secondary"  
         onClick={this.forwardcomment( task.synopsis._id,task.commenents[0]._id)}

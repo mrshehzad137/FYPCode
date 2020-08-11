@@ -103,7 +103,7 @@ class StudentHeader extends Component {
             <DropdownToggle nav>
               <img
                 src={
-                  "http://localhost:4000/"+this.state.studentprofileImage
+                  "https://fyp-ssrs.herokuapp.com/"+this.state.studentprofileImage
                 }
                 className="img-avatar"
                 alt="admin@bootstrapmaster.com"
