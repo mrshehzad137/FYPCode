@@ -35,13 +35,44 @@ class Faculty extends Component {
       })
     }
   }
+
+  deleteRole(id,role){
+    return function(){
+      console.log(id,role)
+      axios.post('/api/admin/deleteRole',{id:id,role:role})
+      .then(res=>{
+        alert(res.data.message)
+        window.location.reload() 
+      })
+
+      .catch(err=>{
+        alert(err)
+      })
+    }
+  }
+
+  deleteFaculty(fid){
+    return function(){
+      axios.post('/api/faculty/ChangeStatus',{id:fid,status:"Deleted"})
+      .then(res=>{
+        if(res.data.message){
+          alert("Faculty Deleted Success..!!!");
+        }
+        window.location.reload(false);
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+    }
+  }
+
   componentWillMount(){
     this.props.getfaculty();
   }
 
   render() {
     console.log(this.props.facultyList);
-    const facultylistItem = this.props.facultyList.facultyList.map((facultymember,index) => 
+    const facultylistItem = this.props.facultyList.facultyList.filter(fclt=>fclt.status!=="Deleted").map((facultymember,index) => 
     <tr scope="row" key={index} >
     <td>{facultymember.fname+" "+facultymember.lname}</td>
     <td>{(facultymember.isReviewer)?(facultymember.isSupervisor)?"Both":"Reviewer":(facultymember.isSupervisor)?"Supervisor":"Not Assigned"}</td>
@@ -51,6 +82,12 @@ class Faculty extends Component {
       <button type="button" class="btn btn-pill btn-primary" onClick={this.assignRole(facultymember._id,"Supervisor")}
       hidden={(facultymember.isSupervisor)?true:false} style={{marginLeft:'10px'}}>Supervisor</button>
     </td>
+    <td>
+      <button type="button" class="btn btn-pill btn-primary"  onClick={this.deleteRole(facultymember._id,"Reviewer")}
+      hidden={(facultymember.isReviewer)?false:true} >Reviewer</button>
+      <button type="button" class="btn btn-pill btn-primary" onClick={this.deleteRole(facultymember._id,"Supervisor")}
+      hidden={(facultymember.isSupervisor)?false:true} style={{marginLeft:'10px'}}>Supervisor</button>
+    </td>
     <td> <Progress animated color="success" value={(facultymember.performance)?facultymember.performance:"80"} className="mb-3" /></td>
     <td>
       <Link to={'/AdminDashboard/facultyShow/'+facultymember._id}>
@@ -58,7 +95,7 @@ class Faculty extends Component {
         <i class="icon-eye"></i>
       </button>
       </Link>
-      <button type="button" class="btn btn-outline-danger">
+      <button type="button" class="btn btn-outline-danger" onClick={this.deleteFaculty(facultymember._id)}>
         <i class="icon-trash"></i>
       </button>
     </td> 
@@ -97,6 +134,7 @@ class Faculty extends Component {
                 <th scope="col">Faculty Name</th>
                 <th scope="col">Role</th>
                 <th scope="col">Assign Role</th>
+                <th scope="col">Delete Role</th>
                 <th scope="col">Performance</th>
                 <th scope="col">Action</th>
               </tr>

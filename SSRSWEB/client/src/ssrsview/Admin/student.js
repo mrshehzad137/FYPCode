@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {Link } from 'react-router-dom';
 import {getStudent} from '../../redux/Admin/AdminAction';
 import nodataImage from '../../assets/img/nodata.png';
+import axios from 'axios';
 
 class Student extends Component {
   constructor(props) {
@@ -13,6 +14,22 @@ class Student extends Component {
     };
 
     this.toggleSuccess = this.toggleSuccess.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(sid){
+    return function(){
+      axios.post('/api/student/ChangeStatus',{id:sid,status:"Deleted"})
+      .then(res=>{
+        if(res.data.message){
+          alert("Student Deleted Success..!!!");
+        }
+        window.location.reload(false);
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+    }  
   }
 
   toggleSuccess() {
@@ -26,7 +43,7 @@ class Student extends Component {
   }
 
   render() {
-    const studentlistItem = this.props.studentList.map((student_list,index) => 
+    const studentlistItem = this.props.studentList.filter(std=> std.status!=="Deleted").map((student_list,index) => 
                  <tr scope="row" key={index}>
                  <td>{student_list.regNumber}</td>
                  <td>{student_list.fname+" "+student_list.lname}</td>
@@ -44,7 +61,7 @@ class Student extends Component {
                         <i className="icon-eye"></i>
                       </button>
                   </Link>
-                  <button type="button" className="btn btn-outline-danger">
+                  <button type="button" className="btn btn-outline-danger" onClick={this.handleDelete(student_list._id)}>
                     <i className="icon-trash"></i>
                   </button>
                  </td> 

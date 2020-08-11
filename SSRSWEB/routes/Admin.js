@@ -483,6 +483,32 @@ router.post('/assignRole',(req,res)=>{
   ])
 })
 
+router.post('/deleteRole',(req,res)=>{
+  console.log(req.body);
+  Faculty.findById(req.body.id)
+  .then(faculty=>{
+    (req.body.role==="Reviewer")?faculty.isReviewer=false:'';
+    (req.body.role==="Supervisor")?faculty.isSupervisor=false:'';
+    faculty.save()
+    .then(result=>{
+      res.status(200).json({
+        message:"Role Assigned Success"
+      })
+      
+    })
+    .catch(err=>[
+      res.status(404).json({
+        error:err
+      })
+    ])
+  })
+  .catch(err=>[
+    res.status(404).json({
+      error:err
+    })
+  ])
+})
+
 router.post('/forwardComments',(req,res)=>{
   console.log(req.body)
   Synopsis.findById(req.body.synopsisId)

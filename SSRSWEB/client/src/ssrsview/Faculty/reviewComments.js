@@ -65,8 +65,8 @@ export default class ReviewComments extends Component {
                     <div  className="col-xs-12 col-sm-12 col-md-12 col-lg-12 card" key={index} >
                       <div className="card-body">
                         <h4 className="card-title" >Synopsis Title:    {synopsis.title}</h4>
-                        <h5 className="card-text" >Student Name:    {synopsis.student.fname+" "+synopsis.student.lname}</h5>
-                        <p className="card-text" >Student Reg#:    {synopsis.student.regNumber}</p>
+                        <h5 className="card-text" >Student Name:    {((synopsis.student)?synopsis.student.fname:'')+" "+((synopsis.student)?synopsis.student.lname:'')}</h5>
+                        <p className="card-text" >Student Reg#:    {(synopsis.student)?synopsis.student.regNumber:''}</p>
                         <div hidden={(synopsis.commenents.length>=1)?false:true}>
                             <h4>Comments By 1st Reviewer</h4>
                               <p style={{color:(synopsis.commenents.length>=1)?'blue':'green'}}>{(synopsis.commenents.length>=1)?synopsis.commenents[0].commenents:'Please download the file by clicking the below button'}</p>

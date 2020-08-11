@@ -33,8 +33,8 @@ export default class Decision extends Component {
     const tasklistItem = synopsisList.map((synopsis,index) =>
       <tr scope="row" key={index}>
       <td>{synopsis.title}</td>
-      <td>{synopsis.student.regNumber}</td>
-      <td>{synopsis.student.fname+" "+synopsis.student.lname}</td> 
+      <td>{(synopsis.student)?synopsis.student.regNumber:''}</td>
+      <td>{((synopsis.student)?synopsis.student.fname:'')+" "+((synopsis.student)?synopsis.student.lname:'')}</td> 
       {/* <td><span class="badge badge-danger" hidden={(synopsis.finalDecision==="Approved")?true:false}>Rejected</span></td> */}
       <td><span className={(synopsis.finalDecision==="Approved")?"badge badge-success":"badge badge-danger"} hidden={(synopsis.finalDecision==="Approved")?false:true}>{(synopsis.finalDecision==="Approved")?"Approved":"Rejected"}</span></td>
       </tr>

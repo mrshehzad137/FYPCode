@@ -119,9 +119,6 @@ class StudentHeader extends Component {
                   Profile
                 </Link>
               </DropdownItem>
-              <DropdownItem>
-                <i className="fa fa-wrench"></i> Settings
-              </DropdownItem>
               <DropdownItem onClick={this.logoutHandler}>
                 <i className="fa fa-lock"></i>
                 <Link to="/student/login" style={{ textDecoration: "none" }}>

@@ -94,7 +94,6 @@ class FacultyHeader extends Component {
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem><i className="fa fa-user"></i><Link to='/FacultyPortal/Profile' style={{textDecoration:'none'}}>Profile</Link></DropdownItem>
-              <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
               <DropdownItem onClick={this.logoutHandler}><i className="fa fa-lock"></i> 
                 <Link to="/faculty/login" style={{textDecoration:"none"}}>Logout</Link>
               </DropdownItem>

@@ -34,8 +34,8 @@ export default class Presentation extends Component {
     const presentationListItem = this.state.presentationList.map((presentation,index) => 
       <tr scope="row" key={index}>
       <td>{presentation.synopsis.title}</td>
-      <td>{presentation.student.fname+" "+presentation.student.lname}</td>
-      <td>{presentation.student.regNumber}</td> 
+      <td>{((presentation.student)?presentation.student.fname:'')+" "+((presentation.student)?presentation.student.lname:'')}</td>
+      <td>{(presentation.student)?presentation.student.regNumber:''}</td> 
       <td>{new Date(presentation.date).toLocaleString().substring(0,10)}</td>
       <td>{
       (presentation.timeSlot==="1")?
